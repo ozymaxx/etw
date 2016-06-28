@@ -1,0 +1,3 @@
+- removed inline declarations for ones giving errors while compilation
+- recorder added
+- modified object files list in makefiles

@@ -1,0 +1,46 @@
+/*
+ * Ozan Can Altiok
+ * 0052709
+ * COMP 508 - Computer Vision & Pattern Recognition
+ * Project - Data Collection
+ * trecord.h - Data Collection Functions Interface & Struct Definitions (Bag of Frames)
+ * */
+
+#define LENGTH 10
+
+// a simple frame structure, alternatively a record
+struct trecord {
+	int x,y;
+	int playerID;
+	int teamName;
+	unsigned long long timestamp;
+	int whichHalf;
+};
+
+// a simple frame bag structure
+typedef struct trecbag {
+	char* fileName;
+	struct trecord** records;
+	int index;
+} trec;
+
+// function signatures
+void freeRecords( char*, struct trecord***, int*);
+void allocRecords( struct trecord***, int*);
+void addRecord( int, int, int, int, int, unsigned long long, struct trecord***, int*, char*);
+void initBag( trec**, char*);
+void addToBag( int, int, int, int, int, unsigned long long, trec**);
+void freeRemainder( trec**);
+
+void freeBag( trec**);
+
+// the global records bag
+trec *rb;
+// and its file name
+char* fileName;
+
+// players' motion info
+trec **pb1;
+trec **pb2;
+
+unsigned long timest;
