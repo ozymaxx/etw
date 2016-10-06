@@ -404,12 +404,27 @@ void ShowPanel(void)
         }
 
         if (!penalties && !free_kicks) {
-            sprintf(buffer, "%3ld:%02d", mins + situation_time, (int) secs);
+			// degisim, skor tabelası buraya
+			// 6 lar 30 oldu (ya da strlen)
+			// secs de 4 katına çıkılıp 10 daha eklendi
+            sprintf(buffer, " %s %d-%d %s %3ld:%02d", p->team[1]->name, (int) p->team[1]->Reti, (int) p->team[0]->Reti, p->team[0]->name, mins + situation_time, (int) secs);
 
-            mins = WINDOW_WIDTH - (font_width * 6) - 2;
-            secs = font_height + 2;
+			int lngth = strlen(buffer);
+            mins = WINDOW_WIDTH - (font_width * lngth) - 2;
+            secs = font_height*4 + 12;
 
-            TextShadow(mins, secs, buffer, 6);
+            TextShadow(mins, secs, buffer, lngth);
+            
+            //buraya bakarlar
+            sprintf(buffer, "%s", p->team[1]->attivo->surname);
+            lngth = strlen(buffer);
+            secs = WINDOW_HEIGHT - font_height;
+            TextShadow(0,secs,buffer,lngth);
+            sprintf(buffer, "%s", p->team[0]->attivo->surname);
+            lngth = strlen(buffer);
+            mins = WINDOW_WIDTH - (font_width * lngth) - 2;
+            secs = WINDOW_HEIGHT - font_height;
+            TextShadow(mins,secs,buffer,lngth);
         }
     }
 

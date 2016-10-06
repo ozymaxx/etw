@@ -399,6 +399,9 @@ void MainLoop(void)
         logic++;
 
         if (Timer() < ideal) {
+			// her daim zamani goster
+			p->show_panel |= PANEL_TIME;
+			
             graphic_frame();
 
             while (Timer() < ideal) {

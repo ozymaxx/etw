@@ -398,6 +398,7 @@ int errno;
 
 int main(int argc, char *argv[])
 {
+	DIR *l;
     /* AC: Why if I include externs.h I obtain 55 compilation error? */
     extern void LoadKeyDef(int, char *);
     
@@ -405,7 +406,6 @@ int main(int argc, char *argv[])
     /* LINUX programs aren't relocatable, except with this trick
      */
 #if defined(linux)
-    DIR *l;
 
     if ((l = opendir("newgfx"))) {
         closedir(l);

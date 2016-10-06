@@ -61,7 +61,9 @@ void init_system(void)
         p->show_time = 50;
     }
     // questo e' indipendente dalle squadre, dipende solo da chi gioca...
-
+    
+    // her daim zamani goster
+    p->show_panel |= PANEL_TIME;
    
     D(if (network_game) bug("Network play, net player: %d\n", network_player->num));
     
