@@ -411,20 +411,21 @@ void ShowPanel(void)
 
 			int lngth = strlen(buffer);
             mins = WINDOW_WIDTH - (font_width * lngth) - 2;
-            secs = font_height*4 + 12;
+            secs = font_height+6;//*4 + 12;
 
             TextShadow(mins, secs, buffer, lngth);
             
-            //buraya bakarlar
+            //buraya bakarlar, oyuncuları alt köşede yazdırma
+            /*
             sprintf(buffer, "%s", p->team[1]->attivo->surname);
             lngth = strlen(buffer);
-            secs = WINDOW_HEIGHT - font_height;
+            secs = WINDOW_HEIGHT - font_height + 5;
             TextShadow(0,secs,buffer,lngth);
             sprintf(buffer, "%s", p->team[0]->attivo->surname);
             lngth = strlen(buffer);
             mins = WINDOW_WIDTH - (font_width * lngth) - 2;
-            secs = WINDOW_HEIGHT - font_height;
-            TextShadow(mins,secs,buffer,lngth);
+            secs = WINDOW_HEIGHT - font_height + 5;
+            TextShadow(mins,secs,buffer,lngth);*/
         }
     }
 
