@@ -550,6 +550,10 @@ void HandleKeeper(int num)
     /*        g->team!=pl->sq_palla    && */
                     pl->world_y<(g->world_y+200) )
         {
+			struct timeval tv;
+			gettimeofday( &tv, NULL);
+			unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
+			
             BOOL presa=FALSE;
 
             if(pl->gioc_palla)
@@ -567,11 +571,20 @@ void HandleKeeper(int num)
 
                     TogliPalla();
                     presa=TRUE;
+                    
+                    if (!replay_mode) {
+						addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+					}
+                    
                     DoSpecialAnim(g,PORTIERE_TUFFO_USCITA_PRENDI);
                     g->ActualSpeed=1;
                 }
                 else
                 {
+					if (!replay_mode) {
+						addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+					}
+					
                     DoSpecialAnim(g,PORTIERE_TUFFO_USCITA_MANCA);
                     g->ActualSpeed=1;
                 }
@@ -583,6 +596,10 @@ void HandleKeeper(int num)
 
                 if(pl->quota<3)
                 {
+					if (!replay_mode) {
+						addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+					}	
+					
                     DoSpecialAnim(g,PORTIERE_RACCOGLI_PALLA);
                 }
                 else if(pl->quota<6)
@@ -591,10 +608,18 @@ void HandleKeeper(int num)
                 }
                 else if(pl->quota<14)
                 {
+					if (!replay_mode) {
+						addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+					}
+					
                     DoSpecialAnim(g,PORTIERE_SALTO_PRENDI);
                 }
                 else
                 {
+					if (!replay_mode) {
+						addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+					}
+					
                     DoSpecialAnim(g,PORTIERE_SALTO_MANCA);
                     presa=FALSE;
                 }
@@ -690,17 +715,29 @@ void HandleKeeper(int num)
 //                D(bug("Preparo tuffo: dst:%ld dir:%ld\n",distance,g->SpecialData));
 
                 g->ActualSpeed=0;
+                
+                struct timeval tv;
+				gettimeofday( &tv, NULL);
+				unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
                 if(pl->quota<8)
                 {
                     if(temp<0)
                     {
+						if (!replay_mode) {
+							addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+						}	
+						
                         DoSpecialAnim(g,PORTIERE_TUFFO_SX_BASSO);
                         g->dir+=(temp+2);
 
                     }
                     else if(temp>0&&temp<4)
                     {
+						if (!replay_mode) {
+							addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+						}	
+						
                         DoSpecialAnim(g,PORTIERE_TUFFO_DX_BASSO);
                         g->dir+=(temp-2);
                     }
@@ -722,11 +759,19 @@ void HandleKeeper(int num)
                 {
                     if(temp<0)
                     {
+						if (!replay_mode) {
+							addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+						}	
+						
                         DoSpecialAnim(g,PORTIERE_TUFFO_SX_ALTO);
                         g->dir+=(temp+2);
                     }
                     else if(temp>0&&temp<4)
                     {
+						if (!replay_mode) {
+							addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+						}	
+						
                         DoSpecialAnim(g,PORTIERE_TUFFO_DX_ALTO);
                         g->dir+=(temp-2);
                     }

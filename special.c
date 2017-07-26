@@ -1,4 +1,11 @@
 #include "eat.h"
+#include "SDL.h"
+
+// recorder
+extern trec *rb;
+extern BOOL replay_mode;
+extern unsigned long timest;
+extern SDL_Surface *screen;
 
 void (*LongPass)(player_t *, uint32_t);
 
@@ -379,6 +386,14 @@ void DoSpecials(player_t *g)
                     g->TimePress=0;
                     g->FirePressed=FALSE;
                     g->ActualSpeed=0;
+                    
+                    struct timeval tv;
+					gettimeofday( &tv, NULL);
+					unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
+
+					if (!replay_mode) {
+						addToBag(-9,-9,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+					}
 
                     DoSpecialAnim(g,GIOCATORE_SCIVOLATA);
 
@@ -773,6 +788,10 @@ void HandleRimessa(player_t *g)
 
         if(!g->Controlled)
             ChangeControlled(g->team,g->GNum);
+            
+        struct timeval tv;
+		gettimeofday( &tv, NULL);
+		unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
         if(l&MYBUTTONMASK)
         {
@@ -790,6 +809,11 @@ void HandleRimessa(player_t *g)
                 Passaggio(g);
                 g->TimePress=-g->SpecialData;
                 g->SpecialData=15;
+                
+                if (!replay_mode) {
+					addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+				}
+                
                 DoSpecialAnim(g,GIOCATORE_RIMESSA);
             }
             return;
@@ -808,6 +832,11 @@ void HandleRimessa(player_t *g)
             temp=-g->SpecialData;
             g->SpecialData=5+(g->TimePress>>1);
             g->TimePress=temp;
+            
+            if (!replay_mode) {
+				addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+			}
+            
             DoSpecialAnim(g,GIOCATORE_RIMESSA);
             return;
         }
@@ -868,6 +897,15 @@ rimessacomputer:
             Passaggio(g);
             g->TimePress=-g->SpecialData;
             g->SpecialData=4+g->creativity+GetTable();
+            
+            struct timeval tv;
+			gettimeofday( &tv, NULL);
+			unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
+            
+            if (!replay_mode) {
+				addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+			}
+            
             DoSpecialAnim(g,GIOCATORE_RIMESSA);
         }
 
