@@ -77,6 +77,15 @@ void HandleGol(void)
 // Palo!!!
         if(!replay_mode)
             UrgentSpeaker(S_PALO_COLPITO);
+            
+        // recorder
+        extern trec *rb;
+		struct timeval tv;
+		gettimeofday( &tv, NULL);
+		unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
+		if ( !replay_mode) {
+			addToBag( -11, -11, -11, -11, 0, ts, &rb);
+		}
 
         D(bug("Pole!\n"));
 

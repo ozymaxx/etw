@@ -1292,12 +1292,6 @@ void HandleReferee(void)
                             ShowBall();
                             break;
                         default: ; // recorder, turnaround
-							// recorder
-							//extern trec *rb;
-							if ( !replay_mode) {
-								addToBag( -3, -3, -3, -3, 0, ts, &rb);
-							}
-							
                             pl->world_x=g->Argomento;
 
                             if(pl->world_y>CENTROCAMPO_Y)

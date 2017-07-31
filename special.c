@@ -1415,8 +1415,17 @@ void ColpoDiTesta(player_t *g)
             else
                 g->AnimType= ( CambioDirezione[Dir][PortaDir]>0 ? GIOCATORE_GIRATA_DESTRA : GIOCATORE_GIRATA_SINISTRA);
         }
-        else
+        else {
+			struct timeval tv;
+			gettimeofday( &tv, NULL);
+			unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
+
+			if (!replay_mode) {
+				addToBag(-7,-7,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+			}
+			
             g->AnimType=GIOCATORE_ROVESCIATA;
+        }
 
         if(g->AnimType!=GIOCATORE_ROVESCIATA &&
             g->AnimType!=GIOCATORE_GIRATA_DESTRA &&
@@ -1461,8 +1470,17 @@ void ColpoDiTesta(player_t *g)
         {
             g->dir=olddir;
 
-            if(g->AnimType==GIOCATORE_PREGIRATA)
+            if(g->AnimType==GIOCATORE_PREGIRATA) {
+				struct timeval tv;
+				gettimeofday( &tv, NULL);
+				unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
+
+				if (!replay_mode) {
+					addToBag(-7,-7,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+				}
+				
                 g->AnimType=GIOCATORE_ROVESCIATA;
+            }
             else if(g->AnimType==GIOCATORE_PRETUFFO)
             {
                 g->AnimType=GIOCATORE_TUFFO_TESTA;

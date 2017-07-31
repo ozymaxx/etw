@@ -1,4 +1,11 @@
 #include "eat.h"
+#include "SDL.h"
+
+// recorder
+extern trec *rb;
+extern BOOL replay_mode;
+extern unsigned long timest;
+extern SDL_Surface *screen;
 
 void CheckInfortuni(player_t *g)
 {
@@ -808,8 +815,17 @@ skipchange:
                             case GIOCATORE_STACCO:
                             case GIOCATORE_PREGIRATA:
                             case GIOCATORE_PRETUFFO:
-                                if( NeiPressiPalla(g) && pl->quota<13 && !pl->gioc_palla)
+                                if( NeiPressiPalla(g) && pl->quota<13 && !pl->gioc_palla) {
+									struct timeval tv;
+									gettimeofday( &tv, NULL);
+									unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
+
+									if (!replay_mode) {
+										addToBag(-10,-10,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+									}
+                                
                                     ColpoDiTesta(g);
+								}
                                 else
                                 {
                                     switch(g->AnimType)
