@@ -1,5 +1,5 @@
 # ETW - Eat the Whistle
-This is a slight modification of [Eat the Whistle](http://www.ggsoft.org/etw/), an open source soccer game. This version saves the frames while playing the game, together with motion data of ball and players. You can put the frames in a video to re-play a game.
+This is a slight modification of [Eat the Whistle](http://www.ggsoft.org/etw/), an open source soccer game. This version saves video frames together with motion data of the ball and players. You can put the frames in a video to re-play a game.
 
 ## Output
 All the data is put in a directory whose name is a timestamp. This directory contains the following:
