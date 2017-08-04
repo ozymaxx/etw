@@ -825,7 +825,7 @@ skipchange:
 									unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
 									if (!replay_mode) {
-										addToBag(-10,-10,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
+										addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-10,&rb);
 									}
                                 
                                     ColpoDiTesta(g);

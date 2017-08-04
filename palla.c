@@ -86,7 +86,7 @@ void HandleGol(void)
 		gettimeofday( &tv, NULL);
 		unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 		if ( !replay_mode) {
-			addToBag( -11, -11, -11, -11, totalTime, ts, &rb);
+			addToBag( -11, -11, -11, -11, totalTime, ts, -11, &rb);
 		}
 
         D(bug("Pole!\n"));
@@ -130,7 +130,7 @@ void HandleGol(void)
 		gettimeofday( &tv, NULL);
 		unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 		if ( !replay_mode) {
-			addToBag( -5, -5, -5, -5, totalTime, ts, &rb);
+			addToBag( -5, -5, -5, -5, totalTime, ts, -5, &rb);
 		}
         
         D(bug("Goal!!!\n"));
@@ -234,7 +234,7 @@ void HandleBall(void)
         
         // recorder
         if ( !replay_mode) {
-			addToBag( pl->world_x, pl->world_y, pl->sq_palla->MarkerRed, pl->gioc_palla->GNum + 1, totalTime, ts, &rb);
+			addToBag( pl->world_x, pl->world_y, pl->sq_palla->MarkerRed, pl->gioc_palla->GNum + 1, totalTime, ts, 0, &rb);
 			char* ssName = (char *) malloc( 100 * sizeof(char) );
 			sprintf( ssName, "%d/%llu.bmp", timest, ts);
 			SDL_SaveBMP( screen, ssName);
@@ -349,7 +349,7 @@ void HandleBall(void)
             
             // recorder
             if ( !replay_mode) {
-				addToBag( pl->world_x, pl->world_y, -1, -1, totalTime, ts, &rb);
+				addToBag( pl->world_x, pl->world_y, -1, -1, totalTime, ts, 0, &rb);
 				char* ssName = (char *) malloc( 100 * sizeof(char) );
 				sprintf( ssName, "%d/%llu.bmp", timest, ts);
 				SDL_SaveBMP( screen, ssName);

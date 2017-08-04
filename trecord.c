@@ -17,9 +17,8 @@ void freeRecords( char* fileName, struct trecord*** records, int* length) {
 	assert(output != NULL);
 	
 	for ( int i = 0; i < *length; i++) {
-		//printf( "%d,%d,%d,%d,%llu,%d\n", (*records)[i]->x, (*records)[i]->y, (*records)[i]->teamName, (*records)[i]->playerID, (*records)[i]->timestamp, (*records)[i]->whichHalf);
 		// write the remaining frames to the output file
-		fprintf( output, "%d,%d,%d,%d,%llu,%d\n", (*records)[i]->x, (*records)[i]->y, (*records)[i]->teamName, (*records)[i]->playerID, (*records)[i]->timestamp, (*records)[i]->whichHalf);
+		fprintf( output, "%d,%d,%d,%d,%llu,%d,%d\n", (*records)[i]->x, (*records)[i]->y, (*records)[i]->teamName, (*records)[i]->playerID, (*records)[i]->timestamp, (*records)[i]->minute, (*records)[i]->specialCase);
 		// free the pointer to a record in the list
 		free( (*records)[i] );
 	}
@@ -39,7 +38,7 @@ void allocRecords( struct trecord*** records, int* length) {
 }
 
 // a function adding the frame record to the records list
-void addRecord( int x, int y, int tm, int id, int whichHalf, unsigned long long timestamp, struct trecord*** records, int* index, char* fileName) {
+void addRecord( int x, int y, int tm, int id, unsigned long minute, unsigned long long timestamp, int specialCase, struct trecord*** records, int* index, char* fileName) {
 	// if the list is full
 	if ( (*index) >= LENGTH ) {
 		//printf("Freeing..\n");
@@ -55,8 +54,9 @@ void addRecord( int x, int y, int tm, int id, int whichHalf, unsigned long long 
 	(*records)[*index]->y = y;
 	(*records)[*index]->playerID = id;
 	(*records)[*index]->teamName = tm;
-	(*records)[*index]->whichHalf = whichHalf;
+	(*records)[*index]->minute = minute;
 	(*records)[*index]->timestamp = timestamp;
+	(*records)[*index]->specialCase = specialCase;
 	
 	// increment the frame counter
 	(*index)++;
@@ -71,8 +71,8 @@ void initBag( trec** rb, char* fileName) {
 }
 
 // a function adding the frame contents to the bag
-void addToBag( int x, int y, int tm, int id, int whichHalf, unsigned long long ts, trec** rb) {
-	addRecord( x, y, tm, id, whichHalf, ts, &((*rb)->records), &((*rb)->index), (*rb)->fileName);
+void addToBag( int x, int y, int tm, int id, unsigned long minute, unsigned long long ts, int specialCase, trec** rb) {
+	addRecord( x, y, tm, id, minute, ts, specialCase, &((*rb)->records), &((*rb)->index), (*rb)->fileName);
 }
 
 // a function freeing the list inside the bag

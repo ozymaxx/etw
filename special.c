@@ -396,7 +396,7 @@ void DoSpecials(player_t *g)
 					unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
 					if (!replay_mode) {
-						addToBag(-9,-9,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
+						addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-9,&rb);
 					}
 
                     DoSpecialAnim(g,GIOCATORE_SCIVOLATA);
@@ -818,7 +818,7 @@ void HandleRimessa(player_t *g)
                 g->SpecialData=15;
                 
                 if (!replay_mode) {
-					addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
+					addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-8,&rb);
 				}
                 
                 DoSpecialAnim(g,GIOCATORE_RIMESSA);
@@ -841,7 +841,7 @@ void HandleRimessa(player_t *g)
             g->TimePress=temp;
             
             if (!replay_mode) {
-				addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
+				addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-8,&rb);
 			}
             
             DoSpecialAnim(g,GIOCATORE_RIMESSA);
@@ -910,7 +910,7 @@ rimessacomputer:
 			unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
             
             if (!replay_mode) {
-				addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
+				addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-8,&rb);
 			}
             
             DoSpecialAnim(g,GIOCATORE_RIMESSA);
@@ -1431,7 +1431,7 @@ void ColpoDiTesta(player_t *g)
 			unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
 			if (!replay_mode) {
-				addToBag(-7,-7,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
+				addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-7,&rb);
 			}
 			
             g->AnimType=GIOCATORE_ROVESCIATA;
@@ -1486,7 +1486,7 @@ void ColpoDiTesta(player_t *g)
 				unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
 				if (!replay_mode) {
-					addToBag(-7,-7,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
+					addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-7,&rb);
 				}
 				
                 g->AnimType=GIOCATORE_ROVESCIATA;

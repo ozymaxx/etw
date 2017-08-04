@@ -14,7 +14,8 @@ struct trecord {
 	int playerID;
 	int teamName;
 	unsigned long long timestamp;
-	int whichHalf;
+	unsigned long minute;
+	int specialCase;
 };
 
 // a simple frame bag structure
@@ -27,9 +28,9 @@ typedef struct trecbag {
 // function signatures
 void freeRecords( char*, struct trecord***, int*);
 void allocRecords( struct trecord***, int*);
-void addRecord( int, int, int, int, int, unsigned long long, struct trecord***, int*, char*);
+void addRecord( int, int, int, int, unsigned long, unsigned long long, int, struct trecord***, int*, char*);
 void initBag( trec**, char*);
-void addToBag( int, int, int, int, int, unsigned long long, trec**);
+void addToBag( int, int, int, int, unsigned long, unsigned long long, int, trec**);
 void freeRemainder( trec**);
 
 void freeBag( trec**);
