@@ -6,6 +6,7 @@ extern trec *rb;
 extern BOOL replay_mode;
 extern unsigned long timest;
 extern SDL_Surface *screen;
+extern unsigned long totalTime;
 
 void (*LongPass)(player_t *, uint32_t);
 
@@ -378,6 +379,9 @@ void UpdateCornerLine(void)
 
 void DoSpecials(player_t *g)
 {
+	// recorder
+	extern unsigned long totalTime;
+	
 // Zona speciale della palla
 
         if( InAreaPalla(g) && pl->quota<2 )
@@ -392,7 +396,7 @@ void DoSpecials(player_t *g)
 					unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
 					if (!replay_mode) {
-						addToBag(-9,-9,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+						addToBag(-9,-9,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
 					}
 
                     DoSpecialAnim(g,GIOCATORE_SCIVOLATA);
@@ -772,6 +776,9 @@ void RimessaLaterale(player_t *g)
 
 void HandleRimessa(player_t *g)
 {
+	// recorder
+	extern unsigned long totalTime;
+	
     if(p->show_panel&0xff00)
         return;
 
@@ -811,7 +818,7 @@ void HandleRimessa(player_t *g)
                 g->SpecialData=15;
                 
                 if (!replay_mode) {
-					addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+					addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
 				}
                 
                 DoSpecialAnim(g,GIOCATORE_RIMESSA);
@@ -834,7 +841,7 @@ void HandleRimessa(player_t *g)
             g->TimePress=temp;
             
             if (!replay_mode) {
-				addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+				addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
 			}
             
             DoSpecialAnim(g,GIOCATORE_RIMESSA);
@@ -903,7 +910,7 @@ rimessacomputer:
 			unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
             
             if (!replay_mode) {
-				addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+				addToBag(-8,-8,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
 			}
             
             DoSpecialAnim(g,GIOCATORE_RIMESSA);
@@ -1349,6 +1356,9 @@ tirapunizione:
 
 void ColpoDiTesta(player_t *g)
 {
+	// recorder
+	extern unsigned long totalTime;
+	
     if(pl->gioc_palla||!pl->InGioco)
         return;
 
@@ -1421,7 +1431,7 @@ void ColpoDiTesta(player_t *g)
 			unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
 			if (!replay_mode) {
-				addToBag(-7,-7,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+				addToBag(-7,-7,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
 			}
 			
             g->AnimType=GIOCATORE_ROVESCIATA;
@@ -1476,7 +1486,7 @@ void ColpoDiTesta(player_t *g)
 				unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
 				if (!replay_mode) {
-					addToBag(-7,-7,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+					addToBag(-7,-7,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
 				}
 				
                 g->AnimType=GIOCATORE_ROVESCIATA;

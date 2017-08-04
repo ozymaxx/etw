@@ -7,6 +7,7 @@ extern char* fileName;
 extern unsigned long timest;
 extern trec **pb1;
 extern trec **pb2;
+extern unsigned long totalTime;
 
 extern struct player_disk Riserve[2][12];
 extern UBYTE goal_array[GA_SIZE],goal_minute[GA_SIZE],goal_team[GA_SIZE],team_a,team_b,TotaleRiserve[2],NumeroTattiche;

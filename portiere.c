@@ -6,6 +6,7 @@ extern unsigned long timest;
 extern SDL_Surface *screen;
 extern trec *rb;
 extern BOOL replay_mode;
+extern unsigned long totalTime;
 
 struct pos portieri[2][2][SECTORS+SPECIALS]=
 {
@@ -265,9 +266,10 @@ rinviocomputer:
     struct timeval tv;
     extern unsigned long timest;
 	extern SDL_Surface *screen;
+	extern unsigned long totalTime;
 	gettimeofday( &tv, NULL);
 	unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
-    addToBag( g->world_x, g->world_y, g->team->MarkerRed, 0, g->world_x >= CENTROCAMPO_X, ts, &rb);
+    addToBag( g->world_x, g->world_y, g->team->MarkerRed, 0, totalTime, ts, &rb);
     char* ssName = (char *) malloc( 100 * sizeof(char) );
 	sprintf( ssName, "%d/%llu.bmp", timest, ts);
 	SDL_SaveBMP( screen, ssName);
@@ -438,7 +440,7 @@ rinvioliberocomputer:
 	extern SDL_Surface *screen;
 	gettimeofday( &tv, NULL);
 	unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
-    addToBag( g->world_x, g->world_y, g->team->MarkerRed, 0, g->world_x >= CENTROCAMPO_X, ts, &rb);
+    addToBag( g->world_x, g->world_y, g->team->MarkerRed, 0, totalTime, ts, &rb);
     char* ssName = (char *) malloc( 100 * sizeof(char) );
 	sprintf( ssName, "%d/%llu.bmp", timest, ts);
 	SDL_SaveBMP( screen, ssName);
@@ -448,6 +450,9 @@ rinvioliberocomputer:
 void HandleKeeper(int num)
 {
     BOOL near_porta;
+    
+    // recorder
+    extern unsigned long totalTime;
 
     register keeper_t *g=&p->team[num]->keepers;
     
@@ -459,19 +464,19 @@ void HandleKeeper(int num)
 		for ( int i = 0; i < 11; i++) {
 			if ( i == 0) {
 				if ( ( (int) p->team[num]->MarkerRed ) == 6 ) {
-					addToBag( g->world_x, g->world_y, p->team[num]->MarkerRed, 0, g->world_x >= CENTROCAMPO_X, ts, &pb1[i]);
+					addToBag( g->world_x, g->world_y, p->team[num]->MarkerRed, 0, totalTime, ts, &pb1[i]);
 				}
 				else {
-					addToBag( g->world_x, g->world_y, p->team[num]->MarkerRed, 0, g->world_x >= CENTROCAMPO_X, ts, &pb2[i]);
+					addToBag( g->world_x, g->world_y, p->team[num]->MarkerRed, 0, totalTime, ts, &pb2[i]);
 				}
 			}
 			else {
 				if ( p->team[num]->players[i-1].Comando != STAI_FERMO) {
 					if ( ( (int) p->team[num]->MarkerRed ) == 6 ) {
-						addToBag( p->team[num]->players[i-1].world_x, p->team[num]->players[i-1].world_y, p->team[num]->MarkerRed, p->team[num]->players[i-1].GNum + 1, g->world_x >= CENTROCAMPO_X, ts, &pb1[i]);
+						addToBag( p->team[num]->players[i-1].world_x, p->team[num]->players[i-1].world_y, p->team[num]->MarkerRed, p->team[num]->players[i-1].GNum + 1, totalTime, ts, &pb1[i]);
 					}
 					else {
-						addToBag( p->team[num]->players[i-1].world_x, p->team[num]->players[i-1].world_y, p->team[num]->MarkerRed, p->team[num]->players[i-1].GNum + 1, g->world_x >= CENTROCAMPO_X, ts, &pb2[i]);
+						addToBag( p->team[num]->players[i-1].world_x, p->team[num]->players[i-1].world_y, p->team[num]->MarkerRed, p->team[num]->players[i-1].GNum + 1, totalTime, ts, &pb2[i]);
 					}
 				}
 			}
@@ -573,7 +578,7 @@ void HandleKeeper(int num)
                     presa=TRUE;
                     
                     if (!replay_mode) {
-						addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+						addToBag(-6,-6,g->team->MarkerRed,0,totalTime,ts,&rb);
 					}
                     
                     DoSpecialAnim(g,PORTIERE_TUFFO_USCITA_PRENDI);
@@ -582,7 +587,7 @@ void HandleKeeper(int num)
                 else
                 {
 					if (!replay_mode) {
-						addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+						addToBag(-6,-6,g->team->MarkerRed,0,totalTime,ts,&rb);
 					}
 					
                     DoSpecialAnim(g,PORTIERE_TUFFO_USCITA_MANCA);
@@ -597,7 +602,7 @@ void HandleKeeper(int num)
                 if(pl->quota<3)
                 {
 					if (!replay_mode) {
-						addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+						addToBag(-6,-6,g->team->MarkerRed,0,totalTime,ts,&rb);
 					}	
 					
                     DoSpecialAnim(g,PORTIERE_RACCOGLI_PALLA);
@@ -609,7 +614,7 @@ void HandleKeeper(int num)
                 else if(pl->quota<14)
                 {
 					if (!replay_mode) {
-						addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+						addToBag(-6,-6,g->team->MarkerRed,0,totalTime,ts,&rb);
 					}
 					
                     DoSpecialAnim(g,PORTIERE_SALTO_PRENDI);
@@ -617,7 +622,7 @@ void HandleKeeper(int num)
                 else
                 {
 					if (!replay_mode) {
-						addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+						addToBag(-6,-6,g->team->MarkerRed,0,totalTime,ts,&rb);
 					}
 					
                     DoSpecialAnim(g,PORTIERE_SALTO_MANCA);
@@ -725,7 +730,7 @@ void HandleKeeper(int num)
                     if(temp<0)
                     {
 						if (!replay_mode) {
-							addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+							addToBag(-6,-6,g->team->MarkerRed,0,totalTime,ts,&rb);
 						}	
 						
                         DoSpecialAnim(g,PORTIERE_TUFFO_SX_BASSO);
@@ -735,7 +740,7 @@ void HandleKeeper(int num)
                     else if(temp>0&&temp<4)
                     {
 						if (!replay_mode) {
-							addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+							addToBag(-6,-6,g->team->MarkerRed,0,totalTime,ts,&rb);
 						}	
 						
                         DoSpecialAnim(g,PORTIERE_TUFFO_DX_BASSO);
@@ -760,7 +765,7 @@ void HandleKeeper(int num)
                     if(temp<0)
                     {
 						if (!replay_mode) {
-							addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+							addToBag(-6,-6,g->team->MarkerRed,0,totalTime,ts,&rb);
 						}	
 						
                         DoSpecialAnim(g,PORTIERE_TUFFO_SX_ALTO);
@@ -769,7 +774,7 @@ void HandleKeeper(int num)
                     else if(temp>0&&temp<4)
                     {
 						if (!replay_mode) {
-							addToBag(-6,-6,g->team->MarkerRed,0,g->world_x >= CENTROCAMPO_X,ts,&rb);
+							addToBag(-6,-6,g->team->MarkerRed,0,totalTime,ts,&rb);
 						}	
 						
                         DoSpecialAnim(g,PORTIERE_TUFFO_DX_ALTO);

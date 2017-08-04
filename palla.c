@@ -8,6 +8,7 @@ extern trec *rb;
 extern BOOL replay_mode;
 extern unsigned long timest;
 extern SDL_Surface *screen;
+extern unsigned long totalTime;
 
 void RimbalzoCasuale(void)
 {
@@ -80,11 +81,12 @@ void HandleGol(void)
             
         // recorder
         extern trec *rb;
+        extern unsigned long totalTime;
 		struct timeval tv;
 		gettimeofday( &tv, NULL);
 		unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 		if ( !replay_mode) {
-			addToBag( -11, -11, -11, -11, 0, ts, &rb);
+			addToBag( -11, -11, -11, -11, totalTime, ts, &rb);
 		}
 
         D(bug("Pole!\n"));
@@ -124,10 +126,11 @@ void HandleGol(void)
         // recorder
         extern trec *rb;
 		struct timeval tv;
+		extern unsigned long totalTime;
 		gettimeofday( &tv, NULL);
 		unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 		if ( !replay_mode) {
-			addToBag( -5, -5, -5, -5, 0, ts, &rb);
+			addToBag( -5, -5, -5, -5, totalTime, ts, &rb);
 		}
         
         D(bug("Goal!!!\n"));
@@ -217,6 +220,7 @@ void HandleBall(void)
 	// recorder
 	extern trec *rb;
 	struct timeval tv;
+	extern unsigned long totalTime;
 	gettimeofday( &tv, NULL);
 	unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 	
@@ -230,7 +234,7 @@ void HandleBall(void)
         
         // recorder
         if ( !replay_mode) {
-			addToBag( pl->world_x, pl->world_y, pl->sq_palla->MarkerRed, pl->gioc_palla->GNum + 1, pl->sq_palla->keepers.world_x >= CENTROCAMPO_X, ts, &rb);
+			addToBag( pl->world_x, pl->world_y, pl->sq_palla->MarkerRed, pl->gioc_palla->GNum + 1, totalTime, ts, &rb);
 			char* ssName = (char *) malloc( 100 * sizeof(char) );
 			sprintf( ssName, "%d/%llu.bmp", timest, ts);
 			SDL_SaveBMP( screen, ssName);
@@ -345,7 +349,7 @@ void HandleBall(void)
             
             // recorder
             if ( !replay_mode) {
-				addToBag( pl->world_x, pl->world_y, -1, -1, 0, ts, &rb);
+				addToBag( pl->world_x, pl->world_y, -1, -1, totalTime, ts, &rb);
 				char* ssName = (char *) malloc( 100 * sizeof(char) );
 				sprintf( ssName, "%d/%llu.bmp", timest, ts);
 				SDL_SaveBMP( screen, ssName);

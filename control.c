@@ -6,6 +6,7 @@ extern trec *rb;
 extern BOOL replay_mode;
 extern unsigned long timest;
 extern SDL_Surface *screen;
+extern unsigned long totalTime;
 
 void CheckInfortuni(player_t *g)
 {
@@ -56,6 +57,9 @@ void MoveNonControlled(void)
     register player_t *g;
     register team_t *s;
     WORD xlimit_e,ylimit_s,xlimit_o,ylimit_n,j;
+    
+    // recorder
+    extern unsigned long totalTime;
 
     // Cacho un paio di cose :)
 
@@ -821,7 +825,7 @@ skipchange:
 									unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
 									if (!replay_mode) {
-										addToBag(-10,-10,g->team->MarkerRed,g->GNum+1,g->world_x >= CENTROCAMPO_X,ts,&rb);
+										addToBag(-10,-10,g->team->MarkerRed,g->GNum+1,totalTime,ts,&rb);
 									}
                                 
                                     ColpoDiTesta(g);

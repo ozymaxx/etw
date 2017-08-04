@@ -8,6 +8,7 @@ extern trec *rb;
 extern BOOL replay_mode;
 extern unsigned long timest;
 extern SDL_Surface *screen;
+extern unsigned long totalTime;
 
 extern BOOL replay_done;
 UBYTE goal_array[GA_SIZE],goal_minute[GA_SIZE],goal_team[GA_SIZE];
@@ -60,6 +61,7 @@ void HandleReferee(void)
 	extern BOOL replay_mode;
 	extern unsigned long timest;
 	extern SDL_Surface *screen;
+	extern unsigned long totalTime;
 	
     register referee_t *g=&p->referee;
 
@@ -776,7 +778,7 @@ void HandleReferee(void)
 					// recorder
 					//extern trec *rb;
 					if ( !replay_mode) {
-						addToBag( -2, -2, -2, -2, 0, ts, &rb);
+						addToBag( -2, -2, -2, -2, totalTime, ts, &rb);
 					}
 					
                     if(p->player_injuried)
@@ -943,7 +945,7 @@ void HandleReferee(void)
                         
                         // recorder
 						if ( !replay_mode) {
-							addToBag( pl->world_x, pl->world_y, g1->team->MarkerRed, g1->GNum + 1, g1->team->keepers.world_x >= CENTROCAMPO_X, ts, &rb);
+							addToBag( pl->world_x, pl->world_y, g1->team->MarkerRed, g1->GNum + 1, totalTime, ts, &rb);
 							char* ssName = (char *) malloc( 100 * sizeof(char) );
 							sprintf( ssName, "%d/%llu.bmp", timest, ts);
 							SDL_SaveBMP( screen, ssName);
@@ -988,7 +990,7 @@ void HandleReferee(void)
                         case CORNER_N:
 							// recorder
 							if ( !replay_mode) {
-								addToBag( -4, -4, -4, -4, 0, ts, &rb);
+								addToBag( -4, -4, -4, -4, totalTime, ts, &rb);
 							}
                         
                             pl->world_y=CORNER_Y_N;
@@ -1025,7 +1027,7 @@ void HandleReferee(void)
                                 
                                 // recorder
                                 if ( !replay_mode) {
-									addToBag( pl->world_x, pl->world_y, v->team->MarkerRed, v->GNum + 1, v->team->keepers.world_x >= CENTROCAMPO_X, ts, &rb);
+									addToBag( pl->world_x, pl->world_y, v->team->MarkerRed, v->GNum + 1, totalTime, ts, &rb);
 									char* ssName = (char *) malloc( 100 * sizeof(char) );
 									sprintf( ssName, "%d/%llu.bmp", timest, ts);
 									SDL_SaveBMP( screen, ssName);
@@ -1049,7 +1051,7 @@ void HandleReferee(void)
                         case CORNER_S:
 							// recorder
 							if ( !replay_mode) {
-								addToBag( -4, -4, -4, -4, 0, ts, &rb);
+								addToBag( -4, -4, -4, -4, totalTime, ts, &rb);
 							}
                         
                             pl->world_y=CORNER_Y_S;
@@ -1081,7 +1083,7 @@ void HandleReferee(void)
                                 
                                 // recorder
                                 if ( !replay_mode) {
-									addToBag( pl->world_x, pl->world_y, v->team->MarkerRed, v->GNum + 1, v->team->keepers.world_x >= CENTROCAMPO_X, ts, &rb);
+									addToBag( pl->world_x, pl->world_y, v->team->MarkerRed, v->GNum + 1, totalTime, ts, &rb);
 									char* ssName = (char *) malloc( 100 * sizeof(char) );
 									sprintf( ssName, "%d/%llu.bmp", timest, ts);
 									SDL_SaveBMP( screen, ssName);
@@ -1112,7 +1114,7 @@ void HandleReferee(void)
                                     pl->world_x=GOALKICK_X_SO;
                                     // recorder
                                     if ( !replay_mode) {
-										addToBag( pl->world_x, pl->world_y, p->team[1]->MarkerRed, 0, p->team[1]->keepers.world_x >= CENTROCAMPO_X, ts, &rb);
+										addToBag( pl->world_x, pl->world_y, p->team[1]->MarkerRed, 0, totalTime, ts, &rb);
 										char* ssName = (char *) malloc( 100 * sizeof(char) );
 										sprintf( ssName, "%d/%llu.bmp", timest, ts);
 										SDL_SaveBMP( screen, ssName);
@@ -1124,7 +1126,7 @@ void HandleReferee(void)
                                     pl->world_x=GOALKICK_X_SE;
                                     // recorder
                                     if ( !replay_mode) {
-										addToBag( pl->world_x, pl->world_y, p->team[0]->MarkerRed, 0, p->team[0]->keepers.world_x >= CENTROCAMPO_X, ts, &rb);
+										addToBag( pl->world_x, pl->world_y, p->team[0]->MarkerRed, 0, totalTime, ts, &rb);
 										char* ssName = (char *) malloc( 100 * sizeof(char) );
 										sprintf( ssName, "%d/%llu.bmp", timest, ts);
 										SDL_SaveBMP( screen, ssName);
@@ -1141,7 +1143,7 @@ void HandleReferee(void)
                                     pl->world_x=GOALKICK_X_NO;
                                     // recorder
                                     if ( !replay_mode) {
-										addToBag( pl->world_x, pl->world_y, p->team[1]->MarkerRed, 0, p->team[1]->keepers.world_x >= CENTROCAMPO_X, ts, &rb);
+										addToBag( pl->world_x, pl->world_y, p->team[1]->MarkerRed, 0, totalTime, ts, &rb);
 										char* ssName = (char *) malloc( 100 * sizeof(char) );
 										sprintf( ssName, "%d/%llu.bmp", timest, ts);
 										SDL_SaveBMP( screen, ssName);
@@ -1153,7 +1155,7 @@ void HandleReferee(void)
                                     pl->world_x=GOALKICK_X_NE;
                                     // recorder
                                     if ( !replay_mode) {
-										addToBag( pl->world_x, pl->world_y, p->team[0]->MarkerRed, 0, p->team[0]->keepers.world_x >= CENTROCAMPO_X, ts, &rb);
+										addToBag( pl->world_x, pl->world_y, p->team[0]->MarkerRed, 0, totalTime, ts, &rb);
 										char* ssName = (char *) malloc( 100 * sizeof(char) );
 										sprintf( ssName, "%d/%llu.bmp", timest, ts);
 										SDL_SaveBMP( screen, ssName);

@@ -15,6 +15,7 @@ extern char* fileName;
 extern unsigned long timest;
 extern trec **pb1;
 extern trec **pb2;
+extern unsigned long totalTime;
 
 BOOL use_key0 = FALSE, use_key1 = FALSE;
 
@@ -461,9 +462,11 @@ BOOL LoadStuff(void)
 	extern unsigned long timest;
 	extern trec **pb1;
 	extern trec **pb2;
+	extern unsigned long totalTime;
 	
 	// recorder
     D(bug("Loading track data...\n"));
+    totalTime = 0;
     fileName = (char*) malloc( 200 * sizeof(char) );
     char *dirName = (char*) malloc( 200 * sizeof(char) );
     timest = (unsigned) time(NULL);

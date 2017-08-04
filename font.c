@@ -5,6 +5,9 @@
 
 #define ColorTextShadow(x,y,text,len,c) drawtext(text,len,x+1,y+1,Pens[P_NERO]);drawtext(text,len,x,y,c);
 
+// recorder
+extern unsigned long totalTime;
+
 anim_t *goal_banner = NULL, *replay = NULL;
 gfx_t *pause_gfx = NULL;
 
@@ -242,6 +245,8 @@ void split_string(char *string, int y)
 void ShowPanel(void)
 {
     BOOL goal_onscreen = InAnimList(goal_banner);
+    
+    extern unsigned long totalTime;
 
     if (replay_mode) {
         if (goal_onscreen) {
@@ -407,7 +412,8 @@ void ShowPanel(void)
 			// degisim, skor tabelası buraya
 			// 6 lar 30 oldu (ya da strlen)
 			// secs de 4 katına çıkılıp 10 daha eklendi
-            sprintf(buffer, " %s %d-%d %s %3ld:%02d", p->team[1]->name, (int) p->team[1]->Reti, (int) p->team[0]->Reti, p->team[0]->name, mins + situation_time, (int) secs);
+			totalTime = mins + situation_time;
+            sprintf(buffer, " %s %d-%d %s %3ld:%02d", p->team[1]->name, (int) p->team[1]->Reti, (int) p->team[0]->Reti, p->team[0]->name, totalTime, (int) secs);
 
 			int lngth = strlen(buffer);
             mins = WINDOW_WIDTH - (font_width * lngth) - 2;

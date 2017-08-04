@@ -44,4 +44,3 @@ trec **pb1;
 trec **pb2;
 
 unsigned long timest;
-unsigned long totalTime;
