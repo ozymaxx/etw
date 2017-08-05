@@ -2,6 +2,9 @@
 
 #include "highdirent.h"
 
+// recorder
+extern unsigned long timest;
+
 void ReadTeam(FILE *fh, struct team_disk *s)
 {
     int i;
@@ -653,6 +656,15 @@ void DestroyTeam(team_t *s)
 {
     int i;
 
+    D(bug("Saving team name...\n"));
+    
+    // recorder
+    char fname[100];
+    sprintf(fname,"%d/teams",timest);
+    FILE *teamsFile = fopen(fname,"a+");
+    fprintf(teamsFile,"%d-%s\n",s->MarkerRed,s->name);
+    fclose(teamsFile);
+    
     D(bug("Freeing team...\n"));
 
     if(s->Marker)
