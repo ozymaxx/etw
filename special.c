@@ -390,13 +390,20 @@ void DoSpecials(player_t *g)
                     g->TimePress=0;
                     g->FirePressed=FALSE;
                     g->ActualSpeed=0;
-                    
-                    struct timeval tv;
-					gettimeofday( &tv, NULL);
-					unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
 					if (!replay_mode) {
+						// recorder
+						extern trec *rb;
+						struct timeval tv;
+						extern unsigned long timest;
+						extern SDL_Surface *screen;
+						gettimeofday( &tv, NULL);
+						unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 						addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-9,&rb);
+						char* ssName = (char *) malloc( 100 * sizeof(char) );
+						sprintf( ssName, "%d/%llu.bmp", timest, ts);
+						SDL_SaveBMP( screen, ssName);
+						free( ssName);
 					}
 
                     DoSpecialAnim(g,GIOCATORE_SCIVOLATA);
@@ -795,10 +802,6 @@ void HandleRimessa(player_t *g)
 
         if(!g->Controlled)
             ChangeControlled(g->team,g->GNum);
-            
-        struct timeval tv;
-		gettimeofday( &tv, NULL);
-		unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 
         if(l&MYBUTTONMASK)
         {
@@ -818,7 +821,18 @@ void HandleRimessa(player_t *g)
                 g->SpecialData=15;
                 
                 if (!replay_mode) {
+					// recorder
+					extern trec *rb;
+					struct timeval tv;
+					extern unsigned long timest;
+					extern SDL_Surface *screen;
+					gettimeofday( &tv, NULL);
+					unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 					addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-8,&rb);
+					char* ssName = (char *) malloc( 100 * sizeof(char) );
+					sprintf( ssName, "%d/%llu.bmp", timest, ts);
+					SDL_SaveBMP( screen, ssName);
+					free( ssName);
 				}
                 
                 DoSpecialAnim(g,GIOCATORE_RIMESSA);
@@ -841,7 +855,18 @@ void HandleRimessa(player_t *g)
             g->TimePress=temp;
             
             if (!replay_mode) {
+				// recorder
+				extern trec *rb;
+				struct timeval tv;
+				extern unsigned long timest;
+				extern SDL_Surface *screen;
+				gettimeofday( &tv, NULL);
+				unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 				addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-8,&rb);
+				char* ssName = (char *) malloc( 100 * sizeof(char) );
+				sprintf( ssName, "%d/%llu.bmp", timest, ts);
+				SDL_SaveBMP( screen, ssName);
+				free( ssName);
 			}
             
             DoSpecialAnim(g,GIOCATORE_RIMESSA);
@@ -905,12 +930,19 @@ rimessacomputer:
             g->TimePress=-g->SpecialData;
             g->SpecialData=4+g->creativity+GetTable();
             
-            struct timeval tv;
-			gettimeofday( &tv, NULL);
-			unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
-            
             if (!replay_mode) {
+				// recorder
+				extern trec *rb;
+				struct timeval tv;
+				extern unsigned long timest;
+				extern SDL_Surface *screen;
+				gettimeofday( &tv, NULL);
+				unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 				addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-8,&rb);
+				char* ssName = (char *) malloc( 100 * sizeof(char) );
+				sprintf( ssName, "%d/%llu.bmp", timest, ts);
+				SDL_SaveBMP( screen, ssName);
+				free( ssName);
 			}
             
             DoSpecialAnim(g,GIOCATORE_RIMESSA);
@@ -1426,12 +1458,19 @@ void ColpoDiTesta(player_t *g)
                 g->AnimType= ( CambioDirezione[Dir][PortaDir]>0 ? GIOCATORE_GIRATA_DESTRA : GIOCATORE_GIRATA_SINISTRA);
         }
         else {
-			struct timeval tv;
-			gettimeofday( &tv, NULL);
-			unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
-
 			if (!replay_mode) {
+				// recorder
+				extern trec *rb;
+				struct timeval tv;
+				extern unsigned long timest;
+				extern SDL_Surface *screen;
+				gettimeofday( &tv, NULL);
+				unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 				addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-7,&rb);
+				char* ssName = (char *) malloc( 100 * sizeof(char) );
+				sprintf( ssName, "%d/%llu.bmp", timest, ts);
+				SDL_SaveBMP( screen, ssName);
+				free( ssName);
 			}
 			
             g->AnimType=GIOCATORE_ROVESCIATA;
@@ -1481,12 +1520,19 @@ void ColpoDiTesta(player_t *g)
             g->dir=olddir;
 
             if(g->AnimType==GIOCATORE_PREGIRATA) {
-				struct timeval tv;
-				gettimeofday( &tv, NULL);
-				unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
-
 				if (!replay_mode) {
+					// recorder
+					extern trec *rb;
+					struct timeval tv;
+					extern unsigned long timest;
+					extern SDL_Surface *screen;
+					gettimeofday( &tv, NULL);
+					unsigned long long ts = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
 					addToBag(g->world_x,g->world_y,g->team->MarkerRed,g->GNum+1,totalTime,ts,-7,&rb);
+					char* ssName = (char *) malloc( 100 * sizeof(char) );
+					sprintf( ssName, "%d/%llu.bmp", timest, ts);
+					SDL_SaveBMP( screen, ssName);
+					free( ssName);
 				}
 				
                 g->AnimType=GIOCATORE_ROVESCIATA;
